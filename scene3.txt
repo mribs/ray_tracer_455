@@ -1,0 +1,111 @@
+CameraLookAt 0 0 0
+CameraLookFrom 0 0 1
+CameraLookUp 0 1 0
+FieldOfView 90
+
+DirectionToLight 1.0 1.0 1.0
+LightColor 1.0 1.0 1.0
+AmbientLight 0.1 0.1 0.1
+# Purple Background
+BackgroundColor 0.5 0.0 0.5
+
+# center
+Sphere
+  Center 0.0 0.0 -0.5
+  Radius 0.3
+  Kd 0.6
+  Ks 0.4
+  Ka 0.1
+  Od 0.1 0.1 0.1
+  Os 1.0 1.0 1.0
+  Kgls 64.0
+
+# left
+Sphere
+  Center -0.25 0.25 -0.4
+  Radius 0.15
+  Kd 0.6
+  Ks 0.4
+  Ka 0.1
+  Od 0.1 0.1 0.1
+  Os 1.0 1.0 1.0
+  Kgls 64.0
+
+# right
+Sphere
+  Center 0.25 0.25 -0.4
+  Radius 0.15
+  Kd 0.6
+  Ks 0.4
+  Ka 0.1
+  Od 0.1 0.1 0.1
+  Os 1.0 1.0 1.0
+  Kgls 64.0
+
+  # MINNIe
+
+# center
+Sphere
+  Center 0.5 -0.1 -0.7
+  Radius 0.25
+  Kd 0.6
+  Ks 0.4
+  Ka 0.1
+  Od 1.0 0.0 0.0
+  Os 1.0 1.0 1.0
+  Kgls 64.0
+
+# left
+Sphere
+  Center 0.3 0.1 -0.65
+  Radius 0.12
+  Kd 0.6
+  Ks 0.4
+  Ka 0.1
+  Od 1.0 0.0 0.0
+  Os 1.0 1.0 1.0
+  Kgls 64.0
+
+# right
+Sphere
+  Center 0.7 0.1 -0.65
+  Radius 0.12
+  Kd 0.6
+  Ks 0.4
+  Ka 0.1
+  Od 1.0 0.0 0.0
+  Os 1.0 1.0 1.0
+  Kgls 64.0
+
+# Bow Center (Knot)
+Sphere
+  Center 0.5 0.15 -0.6
+  Radius 0.05
+  Kd 0.6
+  Ks 0.4
+  Ka 0.1
+  Od 1.0 1.0 1.0
+  Os 1.0 1.0 1.0
+  Kgls 64.0
+
+# Bow Left Side
+Sphere
+  Center 0.43 0.18 -0.6
+  Radius 0.07
+  Kd 0.6
+  Ks 0.4
+  Ka 0.1
+  Od 1.0 1.0 1.0
+  Os 1.0 1.0 1.0
+  Kgls 64.0
+
+# Bow Right Side
+Sphere
+  Center 0.57 0.18 -0.6
+  Radius 0.07
+  Kd 0.6
+  Ks 0.4
+  Ka 0.1
+  Od 1.0 1.0 1.0
+  Os 1.0 1.0 1.0
+  Kgls 64.0

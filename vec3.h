@@ -109,4 +109,19 @@ inline vec3 unit_vector(const vec3 &v)
     return v / v.length();
 }
 
+inline std::istream &operator>>(std::istream &input_strm, vec3 &v)
+{
+    auto skip = [](std::istream &i)
+    {
+        while (std::isspace(i.peek()) || i.peek() == ',')
+            i.ignore();
+    };
+    input_strm >> v.e[0];
+    skip(input_strm);
+    input_strm >> v.e[1];
+    skip(input_strm);
+    input_strm >> v.e[2];
+    return input_strm;
+}
+
 #endif
