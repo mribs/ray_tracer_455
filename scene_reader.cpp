@@ -72,6 +72,46 @@ scene read_scene(const std::string &filename)
         {
             stream >> scene.backgroundColor;
         }
+        else if (keyword == "Triangle")
+        {
+            std::vector<point3> vertices;
+            Material material;
+            for (int i = 0; i < 3; i++)
+            {
+                std::getline(file, line);
+                std::stringstream object_stream(line);
+                double x, y, z;
+                object_stream >> x >> y >> z;
+                vertices.push_back(point3(x, y, z));
+            }
+            while (std::getline(file, line))
+            {
+                // objects all end with a newline hopefully
+                if (line.empty() || line[0] == '#')
+                {
+                    break;
+                }
+                std::stringstream material_stream(line);
+                std::string material_key;
+                material_stream >> material_key;
+                if (material_key == "Refl")
+                    material_stream >> material.Refl;
+                else if (material_key == "Kd")
+                    material_stream >> material.kd;
+                else if (material_key == "Ks")
+                    material_stream >> material.ks;
+                else if (material_key == "Ka")
+                    material_stream >> material.ka;
+                else if (material_key == "Od")
+                    material_stream >> material.od;
+                else if (material_key == "Os")
+                    material_stream >> material.os;
+                else if (material_key == "Kgls")
+                    material_stream >> material.kgls;
+
+                // also break if key is unexpected
+            }
+        }
         else if (keyword == "Sphere")
         {
             /* add sphere to hittable_list */
@@ -79,7 +119,7 @@ scene read_scene(const std::string &filename)
             double radius = 0;
             Material material;
             // spere info is 8 lines .. hopefully consistently ..
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < 9; i++)
             {
                 std::getline(file, line);
                 std::stringstream material_stream(line);
@@ -101,6 +141,8 @@ scene read_scene(const std::string &filename)
                     material_stream >> material.os;
                 else if (material_key == "Kgls")
                     material_stream >> material.kgls;
+                else if (material_key == "Refl")
+                    material_stream >> material.Refl;
             }
             auto s = std::make_shared<sphere>(center, radius, material);
             scene.objects.add(s);

@@ -7,7 +7,7 @@
 struct Material
 {
     color od, os;
-    double ka, kd, ks, kgls;
+    double ka, kd, ks, kgls, Refl;
 };
 
 class hit_record

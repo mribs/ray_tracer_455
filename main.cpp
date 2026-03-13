@@ -5,6 +5,7 @@
 #include "hittable_object.h"
 #include "hittable_list.h"
 #include "sphere.h"
+#include "polygon.h"
 #include "scene.h"
 #include "scene_reader.h"
 

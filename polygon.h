@@ -7,46 +7,52 @@
 class polygon : public hittable_object
 {
 public:
-    point3 vert_a, vert_b, vert_c;
+    std::vector<point3> vertices;
+    vec3 normal;
     Material material;
-    polygon(point3 a, point3 b, point3 c, Material material) : vert_a(a), vert_b(b), vert_c(c), material(material) {}
+    double distance;
 
+    polygon(std::vector<point3> vertices, Material material) : vertices(vertices), material(material)
+    {
+        vec3 e1 = vertices[1] - vertices[0];
+        vec3 e2 = vertices[2] - vertices[0];
+        normal = unit_vector(cross(e1, e2));
+        distance = -dot(vertices[0], normal);
+    }
     bool hit(const ray &r, double ray_tmin, double ray_tmax, hit_record &rec) const override
     {
-        // h = b/-2 = d dot (C - Q)
-        vec3 oc = center - r.origin();
-        double a = r.direction().length_squared();
-        double h = dot(r.direction(), oc);
-        double c = oc.length_squared() - radius * radius;
-
-        double discriminant = h * h - a * c;
-        if (discriminant < 0)
-            return false;
-
-        double sqrtd = std::sqrt(discriminant);
-
-        // Find the nearest root that lies in the acceptable range. straight out the guide
-        auto root = (h - sqrtd) / a;
-        if (root <= ray_tmin || ray_tmax <= root)
+        double denom = dot(normal, r.direction());
+        // parrallel
+        if (std::fabs(denom) == 0)
         {
-            root = (h + sqrtd) / a;
-            if (root <= ray_tmin || ray_tmax <= root)
-                return false;
+            return false;
+        }
+        // hits plane
+        double t = -(dot(r.origin(), normal) + distance) / denom;
+        if (t < ray_tmin || t > ray_tmax)
+        {
+            return false;
         }
 
-        rec.t = root;
-        rec.p = r.at(rec.t);
-        vec3 outward_normal = (rec.p - center) / radius;
-        rec.set_face_normal(r, outward_normal);
+        point3 p = r.at(t);
+        for (size_t i = 0; i < vertices.size(); i++)
+        {
+            point3 v0 = vertices[i];
+            point3 v1 = vertices[(i + 1) % vertices.size()];
+            vec3 edge = v1 - v0;
+            vec3 vp = p - v0;
+            if (dot(normal, cross(edge, vp)) < 0)
+            {
+                return false;
+            }
+        }
+        rec.t = t;
+        rec.p = p;
+        rec.set_face_normal(r, normal);
         rec.material = material;
 
         return true;
     }
-
-private:
-    point3 center;
-    double radius;
-    Material material;
 };
 
 #endif
